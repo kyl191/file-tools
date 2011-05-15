@@ -1,15 +1,8 @@
 Code
 - list files in folder
 - filter file list by extension
-- strip metadata/ID3 tags & save to temp file
-- Checksum code
-- Insert into db (SQLite/mySQL)
-- delete temp file
 - repeat till all files done
 
 Modules
 - File system traverser
-- Metadata stripper
-- DB connection to store records in db
-- Temp file creator/cleanup (though doesn't Python have tempfile in system)
 - Some method of checkpointing
