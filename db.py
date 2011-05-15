@@ -14,3 +14,10 @@ def startDB(dbPath):
 		print "Unknown Error"
 	return c
 
+def insertIntoDB(db,title,artist,album,hash,filepath):
+	info = title, artist, album, hash, filepath
+	try:
+		db.execute("INSERT into mp3dedup VALUES (Null, ?, ?, ?, ?, ?)",info)
+	except sqlite3.Error, e:
+		print "SQLite 3: Unknown Error", e.args[0]
+	return info
