@@ -1,6 +1,5 @@
 Code
-- filter file list by extension
-- repeat till all files done
+- Recursive folder traversing
 
 Modules
 - File system traverser
