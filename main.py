@@ -22,14 +22,12 @@ dbcursor = dbconn.cursor()
 #		for files in dirs:
 #			print files
 
-files = []
+# Do the actual hashing of the files
 for file in os.listdir("."):
 	print file
 	if re.search(".mp3",file):
-		files.append(file)
+		hashAndAdd(file)
 		
-for file in files:
-	hashAndAdd(file)
 
 # Close the cursor & commit the DB one last time just for good measure
 dbcursor.close()
