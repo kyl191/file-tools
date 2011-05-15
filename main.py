@@ -2,11 +2,11 @@ import db, hash, mp3, os, sys, re
 def hashAndAdd(file):
 	title, artist, album = mp3.getid3(file)
 	tempfile = mp3.stripid3(file)
-	hash = hash.sha512file(tempfile[1])
+	hashresult = hash.sha512file(tempfile[1])
 	os.close(tempfile[0])
 	os.remove(tempfile[1])
 	print title, artist, album
-	print db.insertIntoDB(dbcursor, str(title), str(artist), str(album), hash, os.path.abspath(file))
+	print db.insertIntoDB(dbcursor, str(title), str(artist), str(album), hashresult, os.path.abspath(file))
 	dbconn.commit()
 
 os.chdir(sys.argv[1])
