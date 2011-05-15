@@ -12,7 +12,7 @@ def startDB(dbPath):
 		print "SQLite 3: Unknown Error", e.args[0]
 	except:
 		print "Unknown Error"
-	return c
+	return conn
 
 def insertIntoDB(db,title,artist,album,hash,filepath):
 	info = title, artist, album, hash, filepath
