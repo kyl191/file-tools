@@ -12,6 +12,3 @@ def sha512file(file):
 			break
 		sha512.update(data)
 	return sha512.hexdigest()
-
-file = "README"
-print file, ":", sha512file(file)
