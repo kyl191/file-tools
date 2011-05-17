@@ -6,8 +6,7 @@ def hashAndAdd(file):
 	hashresult = hash.sha512file(tempfile[1])
 	os.close(tempfile[0])
 	os.remove(tempfile[1])
-	print title, artist, album
-	print db.insertIntoDB(dbcursor, str(title), str(artist), str(album), hashresult, os.path.abspath(file))
+	#print db.insertIntoDB(dbcursor, str(title), str(artist), str(album), hashresult, os.path.abspath(file))
 	dbconn.commit()
 
 # Initial setup of DB & search path
@@ -18,11 +17,11 @@ dbcursor = dbconn.cursor()
 # End initial setup
 
 for root, dirs, files in os.walk('.'):
+	print "Working in", os.path.abspath(root)
 	for filename in files:
-		print os.path.abspath(join(root,filename))
 		if re.search(".mp3",filename):
 			hashAndAdd(os.path.abspath(join(root,filename)))
-			print "found MP3 file: ", os.path.abspath(join(root,filename))
+			#print "found MP3 file: ", os.path.abspath(join(root,filename))
 
 # Close the cursor & commit the DB one last time just for good measure
 dbcursor.close()
