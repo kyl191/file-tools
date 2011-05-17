@@ -19,7 +19,7 @@ dbcursor = dbconn.cursor()
 for root, dirs, files in os.walk('.'):
 	print "Working in", os.path.abspath(root)
 	for filename in files:
-		if re.search(".mp3",filename):
+		if re.search(".mp3",filename,re.IGNORECASE):
 			hashAndAdd(os.path.abspath(join(root,filename)))
 			#print "found MP3 file: ", os.path.abspath(join(root,filename))
 
