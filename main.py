@@ -16,10 +16,16 @@ dbconn = db.startDB(dbPath)
 dbcursor = dbconn.cursor()
 # End initial setup
 
-for root, dirs, files in os.walk('.'):
+# Walk the directory structure looking for MP3 files
+for root, subfolders, files in os.walk('.'):
+	# Mention what path we're working in.
 	print "Working in", os.path.abspath(root)
+	# Since root contains the working folder, and we'll move onto subfolders later, 
+	# We only care about the filename
 	for filename in files:
+		# So, for each file, check if it has an MP3 extension
 		if re.search(".mp3",filename,re.IGNORECASE):
+			# If is does, hash & add it to the db
 			hashAndAdd(os.path.abspath(join(root,filename)))
 			#print "found MP3 file: ", os.path.abspath(join(root,filename))
 
