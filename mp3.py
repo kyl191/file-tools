@@ -14,7 +14,16 @@ def stripid3(file):
 
 def getid3(file):
 	audio = ID3(file)
-	title = audio["TIT2"]
-	artist = audio["TPE1"]
-	album = audio["TALB"]
+	try:
+		title = audio["TIT2"]
+	except:
+		title = "Unknown"
+	try:
+		artist = audio["TPE1"]
+	except:
+		artist = "Unknown"
+	try:
+		album = audio["TALB"]
+	except:
+		album = "Unknown"
 	return title,artist,album

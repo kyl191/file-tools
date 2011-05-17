@@ -5,7 +5,6 @@ Some method of checkpointing & resume from checkpoint.
   - Add a file last modified column to the db
 
 Bug fixes
-- *Seems* to be dying if there's no ID3 data. At least, that's what I'm guessing from the error message "KeyError: 'TIT2'"
 
 Features
 - Dup detection
