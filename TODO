@@ -1,6 +1,8 @@
-Code
-- Recursive folder traversing
+Some method of checkpointing & resume from checkpoint.
+- Saved file in the main dir?
+- Check if there's a record in the db matching the file location of the file to be checked
+ - Would prevent re-checksums. What if the file's been modified though? 
+  - Add a file last modified column to the db
 
-Modules
-- File system traverser
-- Some method of checkpointing
+Bug fixes
+- *Seems* to be dying if there's no ID3 data. At least, that's what I'm guessing from the error message "KeyError: 'TIT2'"
