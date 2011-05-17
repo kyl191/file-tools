@@ -6,3 +6,14 @@ Some method of checkpointing & resume from checkpoint.
 
 Bug fixes
 - *Seems* to be dying if there's no ID3 data. At least, that's what I'm guessing from the error message "KeyError: 'TIT2'"
+
+Features
+- Dup detection
+ - Select * from mp3dedup order by checksum ASC, compare 2, record if dups
+ - Another table in db? Dup list should be in memory actually, since we want to recreate the table on the fly.
+ - Though, come to think of it, having the list stored in an on-disk db is so we're not too worried about stopping the script mid-run.
+ - Hmm. Problem here. Stale data will be stored in the db. Need a way to flush it & update it. Back to the file modification check then... 
+ - Should also have a way to purge the db of info, other than opening it up in SQLite browser and manually hitting truncate table.
+
+- GUI
+ - PyQT4?
