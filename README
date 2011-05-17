@@ -1,1 +1,3 @@
-It works, if you pass in a particular folder.
+It works. Except there's no actual dup removal or detection yet.
+
+python main.py /path/to/root/folder/of/music/directory
