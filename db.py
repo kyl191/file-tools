@@ -21,3 +21,6 @@ def insertIntoDB(db,title,artist,album,hash,filepath):
 	except sqlite3.Error, e:
 		print "SQLite 3: Unknown Error", e.args[0]
 	return info
+
+def checkIfExists():
+	return Null
