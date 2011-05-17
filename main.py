@@ -1,5 +1,6 @@
 import db, hash, mp3, os, sys, re
 from os.path import join
+
 def hashAndAdd(file):
 	title, artist, album = mp3.getid3(file)
 	tempfile = mp3.stripid3(file)
