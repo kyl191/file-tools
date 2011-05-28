@@ -19,10 +19,10 @@ def hashAndAdd(file):
 	if exists > 0:
 		# If the file hasn't been modified since it was checked, don't bother hashing it
 		if dbmtime >= mtime:
-			print "DBmtime", dbmtime, file
 			return
 		else:
 			# Need to come up with an update statement...
+			print "Updating", file
 			update = True
 	
 	tempfile = mp3.stripid3(file)
