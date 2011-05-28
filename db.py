@@ -33,3 +33,10 @@ def checkIfExists(db,filepath):
 			return (results[0],mtime[0])
 		else:
 			return (0, -1)
+def updateDB(db, info):
+	# info = title, artist, album, hash, filepath, mtime
+	try:
+		db.execute("UPDATE mp3dedup set title = {title}, artist = ?, album = ?, checksum = ?, filepath = ?, mtime = ? where filepath = ",info)
+	except sqlite3.Error, e:
+		print "SQLite 3: Unknown Error", e.args[0]
+	return info
