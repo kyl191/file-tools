@@ -29,7 +29,7 @@ def hashAndAdd(file):
 	hashresult = hash.sha512file(tempfile[1])
 	os.close(tempfile[0])
 	os.remove(tempfile[1])
-	info = mp3info(str(title), str(artist), str(album), hashresult, os.path.abspath(file), mtime)
+	info = mp3info(unicode(title), unicode(artist), unicode(album), hashresult, unicode(os.path.abspath(file)), mtime)
 	if not update:
 		db.insertIntoDB(dbcursor, info)
 	else:
