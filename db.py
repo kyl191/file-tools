@@ -2,6 +2,7 @@ import sqlite3
 def startDB(dbPath):
 	try:
 		conn = sqlite3.connect(dbPath)
+		conn.text_factory = unicode
 		c = conn.cursor()
 		c.execute("SELECT * from mp3dedup")
 	except sqlite3.OperationalError as e:

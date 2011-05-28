@@ -12,7 +12,7 @@ def hashAndAdd(file):
 		print(e)
 		return
 	mtime = os.path.getmtime(file)
-	(exists,dbmtime) = db.checkIfExists(dbcursor, os.path.abspath(file))
+	(exists,dbmtime) = db.checkIfExists(dbcursor, unicode(os.path.abspath(file), 'utf-8'))
 	update = False
 	# Gets back a tuple with (count of rows, mtime)
 	# Check if the file has already been hashed
@@ -22,14 +22,14 @@ def hashAndAdd(file):
 			return
 		else:
 			# Need to come up with an update statement...
-			print "Updating", file
+			print("Updating", file)
 			update = True
 	
 	tempfile = mp3.stripid3(file)
 	hashresult = hash.sha512file(tempfile[1])
 	os.close(tempfile[0])
 	os.remove(tempfile[1])
-	info = mp3info(unicode(title), unicode(artist), unicode(album), hashresult, unicode(os.path.abspath(file)), mtime)
+	info = mp3info(unicode(title.text, 'utf-8'), unicode(artist.text, 'utf-8'), unicode(album.text, 'utf-8'), hashresult, unicode(os.path.abspath(file), 'utf-8'), mtime)
 	if not update:
 		db.insertIntoDB(dbcursor, info)
 	else:
