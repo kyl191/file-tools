@@ -5,7 +5,7 @@ def sha512file(file):
 	try:
 		f = open(file,'r')
 	except IOError:
-		print "IO Error, unable to open file", file
+		print("IO Error, unable to open file", file)
 	while True:
 		data = f.read(10240) # SHA512 take 512 bits, 512*20=10240, read more just to be nice & efficient
 		if not data:

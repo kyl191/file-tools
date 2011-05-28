@@ -9,7 +9,7 @@ def hashAndAdd(file):
 		title, artist, album = mp3.getid3(file)
 	except Exception as e:
 		# So far the only exception is an invalid ID3 header found, so not much to grab
-		print e
+		print(e)
 		return
 	mtime = os.path.getmtime(file)
 	(exists,dbmtime) = db.checkIfExists(dbcursor, os.path.abspath(file))
@@ -46,7 +46,7 @@ dbcursor = dbconn.cursor()
 # Walk the directory structure looking for MP3 files
 for root, subfolders, files in os.walk('.'):
 	# Mention what path we're working in.
-	print "Working in", os.path.abspath(root)
+	print("Working in", os.path.abspath(root))
 	# Since root contains the working folder, and we'll move onto subfolders later, 
 	# We only care about the filename
 	for filename in files:
