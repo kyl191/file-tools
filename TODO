@@ -1,9 +1,3 @@
-Some method of checkpointing & resume from checkpoint.
-- Saved file in the main dir?
-- Check if there's a record in the db matching the file location of the file to be checked
- - Would prevent re-checksums. What if the file's been modified though? 
-  - Add a file last modified column to the db
-
 Bug fixes
 
 Features
