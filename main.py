@@ -12,7 +12,7 @@ def hashAndAdd(file):
 	hashresult = hash.sha512file(tempfile[1])
 	os.close(tempfile[0])
 	os.remove(tempfile[1])
-	db.insertIntoDB(dbcursor, str(title), str(artist), str(album), hashresult, os.path.abspath(file),mtime)
+	db.insertIntoDB(dbcursor, (str(title), str(artist), str(album), hashresult, os.path.abspath(file),mtime))
 	dbconn.commit()
 
 # Initial setup of DB & search path
