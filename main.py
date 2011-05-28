@@ -2,9 +2,11 @@ import db, hash, mp3, os, sys, re
 from os.path import join
 
 def hashAndAdd(file):
+	# Check if it's a valid MP3 file first by trying to get the ID3 info
 	try:
 		title, artist, album = mp3.getid3(file)
 	except Exception as e:
+		# So far the only exception is an invalid ID3 header found, so not much to grab
 		print e
 		return
 	mtime = os.path.getmtime(file)
