@@ -10,6 +10,8 @@ def hashAndAdd(file):
 		print e
 		return
 	mtime = os.path.getmtime(file)
+	exists = db.checkIfExists(dbcursor, os.path.abspath(file))
+	print exists, file
 	tempfile = mp3.stripid3(file)
 	hashresult = hash.sha512file(tempfile[1])
 	os.close(tempfile[0])

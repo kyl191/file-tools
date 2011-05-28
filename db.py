@@ -22,5 +22,14 @@ def insertIntoDB(db, info):
 		print "SQLite 3: Unknown Error", e.args[0]
 	return info
 
-def checkIfExists():
-	return Null
+def checkIfExists(db,filepath):
+	try:
+		(results,) = db.execute("SELECT COUNT(*) from mp3dedup WHERE filepath = ?",[filepath])
+	except sqlite3.Error, e:
+		print "SQLite 3: Unknown Error", e.args[0]
+	else:
+		if results[0] > 0:
+			(mtime,) = db.execute("SELECT mtime from mp3dedup WHERE filepath = ?",[filepath])
+			return (results[0],mtime[0])
+		else:
+			return (0, -1)
