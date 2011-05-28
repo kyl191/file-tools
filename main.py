@@ -2,7 +2,12 @@ import db, hash, mp3, os, sys, re
 from os.path import join
 
 def hashAndAdd(file):
-	title, artist, album = mp3.getid3(file)
+	try:
+		title, artist, album = mp3.getid3(file)
+	except Exception as e:
+		print e
+		return
+	mtime = os.path.getmtime(file)
 	tempfile = mp3.stripid3(file)
 	hashresult = hash.sha512file(tempfile[1])
 	os.close(tempfile[0])

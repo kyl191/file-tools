@@ -1,4 +1,5 @@
 from mutagen.id3 import ID3
+import mutagen.id3
 import shutil
 import tempfile
 import os
@@ -13,7 +14,10 @@ def stripid3(file):
 	return temp
 
 def getid3(file):
-	audio = ID3(file)
+	try:
+		audio = ID3(file)
+	except mutagen.id3.ID3NoHeaderError as e:
+		raise Exception(file + " has no ID3 tag!")
 	try:
 		title = audio["TIT2"]
 	except:
