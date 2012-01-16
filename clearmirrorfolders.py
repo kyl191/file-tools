@@ -32,14 +32,14 @@ for root, subfolders, files in os.walk('.'):
 	for filename in files:
 		# If is does, hash & add it to the db
 		#hashAndAdd(os.path.abspath(join(root,filename)))
-		dup = dup_folder + "/" + filename
+		dup = os.path.abspath(dup_folder + "/" + filename)
 		filename = join(root,filename)
-		#print os.path.abspath(filename)
-		#print os.path.abspath(dup)
 		if os.path.exists(dup):
-			if mp4.isMP4(filename) and mp4.isMP4(dup):
-				hash1 = hashmp4(filename)
-				hash2 = hashmp4(dup)
+			print os.path.abspath(filename)
+			print os.path.abspath(dup)
+			if re.search(".mp4",os.path.splitext(filename)[1],re.IGNORECASE) and re.search(".mp4",os.path.splitext(dup)[1],re.IGNORECASE):
+				hash1 = hashMP4(filename)
+				hash2 = hashMP4(dup)
 			else:
 				hash1 = hash.sha512file(filename)
 				hash2 = hash.sha512file(dup)
