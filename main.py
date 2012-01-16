@@ -29,6 +29,7 @@ def hashAndAdd(file):
 
 # Initial setup of DB & search path
 os.chdir(sys.argv[1])
+compare = sys.argv[2]
 #dbPath = "filededup.db"
 #dbconn = db.startDB(dbPath)
 #dbcursor = dbconn.cursor()
