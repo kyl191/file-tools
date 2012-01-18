@@ -15,6 +15,7 @@ def hashMP4(filename):
 	#print tempfile
 	tempfile.close()
 	os.remove(tempfile.name)
+	return hashresult
 
 def hashMP3(filename):
 	tempfile = mp3.stripid3(filename)
