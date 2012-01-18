@@ -8,10 +8,10 @@ def hashMP4(filename):
 	except Exception as e:
 		# So far the only exception is an invalid MP4 header found, so not much to grab
 		print(e)
-	return
 	tempfile = mp4.stripMetadata(file)
 	#print os.path.exists(tempfile.name)
 	hashresult = hash.sha512file(tempfile.name)
+	#print hashresult
 	#print tempfile
 	tempfile.close()
 	os.remove(tempfile.name)
@@ -33,30 +33,30 @@ for root, subfolders, files in os.walk(source_dir):
 	(null, path, pathsuffix) = root.rpartition(sys.argv[1])
 	dup_folder = os.path.normpath(compare_dir + "/" + pathsuffix)
 	# Mention what path we're working in.
-	print("Comparing: " + os.path.abspath(root))
-	print("To: " + os.path.abspath(dup_folder))
+	#print("Comparing: " + os.path.abspath(root))
+	#print("To: " + os.path.abspath(dup_folder))
 	for filename in files:
 		# If is does, hash & add it to the db
 		#hashAndAdd(os.path.abspath(join(root,filename)))
 		dup = os.path.abspath(dup_folder + "/" + filename)
 		filename = join(root,filename)
 		if os.path.exists(dup):
-			print os.path.abspath(filename)
-			print os.path.abspath(dup)
-			if re.search(".mp4",os.path.splitext(filename)[1],re.IGNORECASE) and re.search(".mp4",os.path.splitext(dup)[1],re.IGNORECASE):
+			if re.search(".m4a",os.path.splitext(filename)[1],re.IGNORECASE) and re.search(".m4a",os.path.splitext(dup)[1],re.IGNORECASE):
 				hash1 = hashMP4(filename)
 				hash2 = hashMP4(dup)
-			else if re.search(".mp3",os.path.splitext(filename)[1],re.IGNORECASE) and re.search(".mp3",os.path.splitext(dup)[1],re.IGNORECASE):
-				hash1 = hashMP3(filename)
-				hash2 = hashMP3(dup)
 			else:
 				hash1 = hash.sha512file(filename)
 				hash2 = hash.sha512file(dup)
+			"""elif (re.search(".mp3",os.path.splitext(filename)[1],re.IGNORECASE) and re.search(".mp3",os.path.splitext(dup)[1],re.IGNORECASE)):
+				hash1 = hashMP3(filename)
+				hash2 = hashMP3(dup)"""
 			if hash1 == hash2:
+				print os.path.abspath(filename) + ": \n" + hash1
+				print os.path.abspath(dup) + ": \n" + hash2
 				deleted_files = deleted_files + 1
 				space_saved = space_saved + os.path.getsize(dup)
 				print "[" + str(deleted_files) + "] Removing " + dup
-				os.remove(dup)
+				#os.remove(dup)
 	if os.path.exists(dup_folder) and not os.listdir(dup_folder):
 		os.rmdir(dup_folder)		
 print("Deleted " + str(deleted_files) + ", saving " + str(space_saved) + " bytes of space")
