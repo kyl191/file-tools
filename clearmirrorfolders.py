@@ -1,4 +1,4 @@
-import mp4, hash, os, sys, re
+import mp4, hash, os, sys, re, mp3
 from os.path import join, getsize
 
 def hashMP4(filename):
@@ -16,6 +16,11 @@ def hashMP4(filename):
 	tempfile.close()
 	os.remove(tempfile.name)
 
+def hashMP3(filename):
+	tempfile = mp3.stripid3(filename)
+	hashresult = hash.sha512file(tempfile[1])
+	os.remove(tempfile[1])
+	return hashresult
 
 source_dir = os.path.abspath(sys.argv[1])
 compare_dir = os.path.abspath(sys.argv[2])
@@ -40,6 +45,9 @@ for root, subfolders, files in os.walk(source_dir):
 			if re.search(".mp4",os.path.splitext(filename)[1],re.IGNORECASE) and re.search(".mp4",os.path.splitext(dup)[1],re.IGNORECASE):
 				hash1 = hashMP4(filename)
 				hash2 = hashMP4(dup)
+			else if re.search(".mp3",os.path.splitext(filename)[1],re.IGNORECASE) and re.search(".mp3",os.path.splitext(dup)[1],re.IGNORECASE):
+				hash1 = hashMP3(filename)
+				hash2 = hashMP3(dup)
 			else:
 				hash1 = hash.sha512file(filename)
 				hash2 = hash.sha512file(dup)
