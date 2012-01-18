@@ -17,15 +17,15 @@ def hashMP4(filename):
 	os.remove(tempfile.name)
 
 
-os.chdir(sys.argv[1])
-compare_dir = sys.argv[2]
+source_dir = os.path.abspath(sys.argv[1])
+compare_dir = os.path.abspath(sys.argv[2])
 deleted_files = 0
 space_saved = 0
-for root, subfolders, files in os.walk('.'):
+for root, subfolders, files in os.walk(source_dir):
 	# Since root contains the working folder, and we'll move onto subfolders later, 
 	# We only care about the filename
 	(null, path, pathsuffix) = root.rpartition(sys.argv[1])
-	dup_folder = os.path.normpath(compare_dir + pathsuffix)
+	dup_folder = os.path.normpath(compare_dir + "/" + pathsuffix)
 	# Mention what path we're working in.
 	print("Comparing: " + os.path.abspath(root))
 	print("To: " + os.path.abspath(dup_folder))
