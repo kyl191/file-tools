@@ -1,0 +1,9 @@
+Cases to test:
+1. Same file (text/binary, doesn't matter. As long as it's a format we don't attempt to strip metadata from.)
+2. Different file, same name. (Again, not a format we try to parse.)
+
+MP3
+3. Same file, different metadata (Extract of a CC-licensed MP3 file.)
+
+MP4
+4. Same file, different metadata (Small Youtube MP4 file.)
