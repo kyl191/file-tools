@@ -11,19 +11,17 @@ for root, subfolders, files in os.walk(source_dir):
 	(null, path, pathsuffix) = root.rpartition(source_dir)
 	dup_folder = os.path.normpath(compare_dir + "/" + pathsuffix)
 	# Mention what path we're working in.
-	#print("Comparing: " + os.path.abspath(root))
-	#print("To: " + os.path.abspath(dup_folder))
+	print("Comparing: " + os.path.abspath(root))
+	print("To: " + os.path.abspath(dup_folder))
 	for filename in files:
-		# If is does, hash & add it to the db
-		#hashAndAdd(os.path.abspath(join(root,filename)))
 		dup = os.path.abspath(dup_folder + "/" + filename)
 		filename = join(root,filename)
 		if os.path.exists(dup):
 			hash1 = hash.sha512file(filename)
 			hash2 = hash.sha512file(dup)
 			if hash1 == hash2:
-				print os.path.abspath(filename) + ": \n" + hash1
-				print os.path.abspath(dup) + ": \n" + hash2
+				#print os.path.abspath(filename) + ": \n" + hash1
+				#print os.path.abspath(dup) + ": \n" + hash2
 				deleted_files = deleted_files + 1
 				space_saved = space_saved + os.path.getsize(dup)
 				print "[" + str(deleted_files) + "] Removing " + dup
