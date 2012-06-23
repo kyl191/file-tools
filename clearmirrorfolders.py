@@ -1,27 +1,5 @@
-import mp4, hash, os, sys, re, mp3
+import hash, os, sys, re
 from os.path import join, getsize
-
-def hashMP4(filename):
-	file = open(filename, 'r')
-	try:
-		mp4.isMP4(file)
-	except Exception as e:
-		# So far the only exception is an invalid MP4 header found, so not much to grab
-		print(e)
-	tempfile = mp4.stripMetadata(file)
-	#print os.path.exists(tempfile.name)
-	hashresult = hash.sha512file(tempfile.name)
-	#print hashresult
-	#print tempfile
-	tempfile.close()
-	os.remove(tempfile.name)
-	return hashresult
-
-def hashMP3(filename):
-	tempfile = mp3.stripid3(filename)
-	hashresult = hash.sha512file(tempfile[1])
-	os.remove(tempfile[1])
-	return hashresult
 
 source_dir = os.path.abspath(sys.argv[1])
 compare_dir = os.path.abspath(sys.argv[2])
@@ -41,15 +19,8 @@ for root, subfolders, files in os.walk(source_dir):
 		dup = os.path.abspath(dup_folder + "/" + filename)
 		filename = join(root,filename)
 		if os.path.exists(dup):
-			if re.search(".m4a",os.path.splitext(filename)[1],re.IGNORECASE) and re.search(".m4a",os.path.splitext(dup)[1],re.IGNORECASE):
-				hash1 = hashMP4(filename)
-				hash2 = hashMP4(dup)
-			else:
-				hash1 = hash.sha512file(filename)
-				hash2 = hash.sha512file(dup)
-			"""elif (re.search(".mp3",os.path.splitext(filename)[1],re.IGNORECASE) and re.search(".mp3",os.path.splitext(dup)[1],re.IGNORECASE)):
-				hash1 = hashMP3(filename)
-				hash2 = hashMP3(dup)"""
+			hash1 = hash.sha512file(filename)
+			hash2 = hash.sha512file(dup)
 			if hash1 == hash2:
 				print os.path.abspath(filename) + ": \n" + hash1
 				print os.path.abspath(dup) + ": \n" + hash2
