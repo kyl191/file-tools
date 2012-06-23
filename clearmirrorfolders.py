@@ -39,4 +39,8 @@ for root, subfolders, files in os.walk(source_dir):
 			if not os.path.exists(dst_path):
 				shutil.move(src_path, dst_path)
 				print "Moved " + src_path + " to " + dst_path
+for root, subfolders, files in os.walk(compare_dir, topdown=false):
+	for folder in subfolders:
+		if not os.listdir(join(root, folder)):
+			os.rmdir(join(root, folder))
 print("Deleted " + str(deleted_files) + ", saving " + str(space_saved) + " bytes of space")
