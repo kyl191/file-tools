@@ -25,7 +25,7 @@ for root, subfolders, files in os.walk(source_dir):
 				deleted_files = deleted_files + 1
 				space_saved = space_saved + os.path.getsize(dup)
 				print "[" + str(deleted_files) + "] Removing " + dup
-				#os.remove(dup)
+				os.remove(dup)
 	# Merge files that are in the dup folder but aren't in the source folder
 	# Skip the folder if it's not present in the dup folder but *is* in the source folder
 	if os.path.exists(dup_folder):
@@ -37,9 +37,9 @@ for root, subfolders, files in os.walk(source_dir):
 			dst_path = os.path.abspath(join(root, file))
 			#print src_path, "-->", dst_path
 			if not os.path.exists(dst_path):
-				shutil.move(src_path, dst_path)
-				print "Moved " + src_path + " to " + dst_path
-for root, subfolders, files in os.walk(compare_dir, topdown=false):
+				#shutil.move(src_path, dst_path)
+				#print "Moved " + src_path + " to " + dst_path
+				pass
 for root, subfolders, files in os.walk(compare_dir, topdown=False):
 	# Delete 0-sized files. Assuming by default they're not necessary for anything,
 	# i.e. not sentiel files
