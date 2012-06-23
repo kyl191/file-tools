@@ -27,14 +27,16 @@ for root, subfolders, files in os.walk(source_dir):
 				print "[" + str(deleted_files) + "] Removing " + dup
 				#os.remove(dup)
 	# Merge files that are in the dup folder but aren't in the source folder
-	dup_folder_files = os.listdir(os.path.normpath(dup_folder))
-	for file in dup_folder_files:
-		src_path = os.path.abspath(join(dup_folder, file))
-		dst_path = os.path.abspath(join(root, file))
-		print src_path, dst_path
-		if not os.path.exists(dst_path):
-			#shutil.move(src_path, dst_path)
-			print "Moved " + src_path + " to " + dst_path
-	if os.path.exists(dup_folder) and not os.listdir(dup_folder):
-		os.rmdir(dup_folder)
+	# Skip the folder if it's not present in the dup folder but *is* in the source folder
+	if os.path.exists(dup_folder):
+		dup_folder_files = os.listdir(dup_folder)
+		for file in dup_folder_files:
+			# To keep things somewhat simple for the copying,
+			# src_path is the dup folder, and dst_path is the primary folder
+			src_path = os.path.abspath(join(dup_folder, file))
+			dst_path = os.path.abspath(join(root, file))
+			#print src_path, "-->", dst_path
+			if not os.path.exists(dst_path):
+				shutil.move(src_path, dst_path)
+				print "Moved " + src_path + " to " + dst_path
 print("Deleted " + str(deleted_files) + ", saving " + str(space_saved) + " bytes of space")
