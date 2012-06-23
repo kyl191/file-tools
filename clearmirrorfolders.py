@@ -40,6 +40,12 @@ for root, subfolders, files in os.walk(source_dir):
 				shutil.move(src_path, dst_path)
 				print "Moved " + src_path + " to " + dst_path
 for root, subfolders, files in os.walk(compare_dir, topdown=false):
+for root, subfolders, files in os.walk(compare_dir, topdown=False):
+	# Delete 0-sized files. Assuming by default they're not necessary for anything,
+	# i.e. not sentiel files
+	for file in files:
+		if os.path.getsize(join(root,file)) == 0:
+			os.remove(join(root,file))
 	for folder in subfolders:
 		if not os.listdir(join(root, folder)):
 			os.rmdir(join(root, folder))
