@@ -3,7 +3,7 @@ import hashlib
 def sha512file(file):
 	sha512 = hashlib.sha512()
 	try:
-		f = open(file,'r')
+		f = open(file,'rb')
 	except IOError:
 		print("IO Error, unable to open file", file)
 	while True:
