@@ -5,6 +5,8 @@ source_dir = os.path.abspath(sys.argv[1])
 compare_dir = os.path.abspath(sys.argv[2])
 deleted_files = 0
 space_saved = 0
+testing = True
+debug = True
 for root, subfolders, files in os.walk(source_dir):
 	# Since root contains the working folder, and we'll move onto subfolders later, 
 	# We only care about the filename
@@ -19,27 +21,35 @@ for root, subfolders, files in os.walk(source_dir):
 		if os.path.exists(dup):
 			hash1 = hash.sha512file(filename)
 			hash2 = hash.sha512file(dup)
-			print os.path.abspath(filename) + ": \n" + hash1
-			print os.path.abspath(dup) + ": \n" + hash2
+			if debug:
+				print os.path.abspath(filename) + ": \n" + hash1
+				print os.path.abspath(dup) + ": \n" + hash2
 			if hash1 == hash2:
+				if testing:
+					print "The two files are identical."
 				deleted_files = deleted_files + 1
 				space_saved = space_saved + os.path.getsize(dup)
 				print "[" + str(deleted_files) + "] Removing " + dup
-				os.remove(dup)
+				if not testing:
+					os.remove(dup)
 			elif re.search(".jpg",filename,re.IGNORECASE):
 				tempsrc = jpg.stripmetadata(filename)
 				tempdup = jpg.stripmetadata(dup)
 				hash1 = hash.sha512file(tempsrc)
 				hash2 = hash.sha512file(tempdup)
-				print os.path.abspath(filename) + " (Stripped): \n" + hash1
-				print os.path.abspath(dup) + " (Stripped): \n" + hash2
+				if debug:
+					print os.path.abspath(filename) + " (Stripped): \n" + hash1
+					print os.path.abspath(dup) + " (Stripped): \n" + hash2
 				if hash1 == hash2:
+					if testing:
+						print "The two files differ by metadata, by contents are the same."
 					deleted_files = deleted_files + 1
 					space_saved = space_saved + os.path.getsize(dup)
 					print "[" + str(deleted_files) + "] Removing " + dup
-					#os.remove(dup)
-				#os.remove(tempsrc)
-				#os.remove(tempdup)
+					if not testing:
+						os.remove(dup)
+				os.remove(tempsrc)
+				os.remove(tempdup)
 	# Merge files that are in the dup folder but aren't in the source folder
 	# Skip the folder if it's not present in the dup folder but *is* in the source folder
 	if os.path.exists(dup_folder):
