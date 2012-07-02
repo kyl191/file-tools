@@ -1,4 +1,4 @@
-import hash, os, sys, re, shutil
+import hash, os, sys, re, shutil, jpg
 from os.path import join, getsize
 
 source_dir = os.path.abspath(sys.argv[1])
@@ -19,13 +19,27 @@ for root, subfolders, files in os.walk(source_dir):
 		if os.path.exists(dup):
 			hash1 = hash.sha512file(filename)
 			hash2 = hash.sha512file(dup)
+			print os.path.abspath(filename) + ": \n" + hash1
+			print os.path.abspath(dup) + ": \n" + hash2
 			if hash1 == hash2:
-				#print os.path.abspath(filename) + ": \n" + hash1
-				#print os.path.abspath(dup) + ": \n" + hash2
 				deleted_files = deleted_files + 1
 				space_saved = space_saved + os.path.getsize(dup)
 				print "[" + str(deleted_files) + "] Removing " + dup
 				os.remove(dup)
+			elif re.search(".jpg",filename,re.IGNORECASE):
+				tempsrc = jpg.stripmetadata(filename)
+				tempdup = jpg.stripmetadata(dup)
+				hash1 = hash.sha512file(tempsrc)
+				hash2 = hash.sha512file(tempdup)
+				print os.path.abspath(filename) + " (Stripped): \n" + hash1
+				print os.path.abspath(dup) + " (Stripped): \n" + hash2
+				if hash1 == hash2:
+					deleted_files = deleted_files + 1
+					space_saved = space_saved + os.path.getsize(dup)
+					print "[" + str(deleted_files) + "] Removing " + dup
+					#os.remove(dup)
+				#os.remove(tempsrc)
+				#os.remove(tempdup)
 	# Merge files that are in the dup folder but aren't in the source folder
 	# Skip the folder if it's not present in the dup folder but *is* in the source folder
 	if os.path.exists(dup_folder):
