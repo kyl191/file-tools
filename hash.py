@@ -16,6 +16,6 @@ def sha512file(file):
 		sha512.update(data)
 	hash = sha512.hexdigest()
 	end = time.clock()
-	print "Took", end - start, "seconds to read", os.stat(file).st_size, "bytes"
+	#print "Took", end - start, "seconds to read", os.stat(file).st_size, "bytes"
 	f.close()
 	return hash
