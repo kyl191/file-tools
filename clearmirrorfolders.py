@@ -25,8 +25,7 @@ for root, subfolders, files in os.walk(source_dir):
 				print os.path.abspath(filename) + ": \n" + hash1
 				print os.path.abspath(dup) + ": \n" + hash2
 			if hash1 == hash2:
-				if testing:
-					print "The two files are identical."
+				print filename + " and " + dup + " are identical."
 				deleted_files = deleted_files + 1
 				space_saved = space_saved + os.path.getsize(dup)
 				print "[" + str(deleted_files) + "] Removing " + dup
@@ -41,8 +40,7 @@ for root, subfolders, files in os.walk(source_dir):
 					print os.path.abspath(filename) + " (Stripped): \n" + hash1
 					print os.path.abspath(dup) + " (Stripped): \n" + hash2
 				if hash1 == hash2:
-					if testing:
-						print "The two files differ by metadata, by contents are the same."
+					print  filename + " and " + dup + " differ by metadata, but contents are the same."
 					deleted_files = deleted_files + 1
 					space_saved = space_saved + os.path.getsize(dup)
 					print "[" + str(deleted_files) + "] Removing " + dup
