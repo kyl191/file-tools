@@ -5,7 +5,12 @@ import os
 
 def stripmetadata(file):
 	temp = tempfile.NamedTemporaryFile(suffix = ".jpg", delete = False)
-	Image.open(file).copy().save(temp.name)
+	try:
+		Image.open(file).copy().save(temp.name)
+	except IOError: 
+		print "IOError processing" + file
+		temp.close()
+		return False
 	temp.close()
 	return temp.name
 
