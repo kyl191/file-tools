@@ -1,4 +1,4 @@
-import hash, os, sys, re, shutil, jpg
+import hash, os, sys, re, shutil, jpg, filecmp
 from os.path import join, getsize
 
 source_dir = os.path.abspath(sys.argv[1])
