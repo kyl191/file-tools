@@ -32,6 +32,8 @@ for root, subfolders, files in os.walk(source_dir):
 				if not testing:
 					os.remove(dup)
 			elif re.search(".jpg",filename,re.IGNORECASE):
+				# stripmetadata returns an empty file if opening the image fails!
+				# Problem because then it's picked up as metadata differing...
 				tempsrc = jpg.stripmetadata(filename)
 				tempdup = jpg.stripmetadata(dup)
 				hash1 = hash.sha512file(tempsrc)
