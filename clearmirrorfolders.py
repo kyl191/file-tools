@@ -19,12 +19,12 @@ for root, subfolders, files in os.walk(source_dir):
 		dup = os.path.abspath(dup_folder + "/" + filename)
 		filename = join(root,filename)
 		if os.path.exists(dup):
-			hash1 = hash.sha512file(filename)
+			"""hash1 = hash.sha512file(filename)
 			hash2 = hash.sha512file(dup)
 			if debug:
 				print os.path.abspath(filename) + ": \n" + hash1
-				print os.path.abspath(dup) + ": \n" + hash2
-			if hash1 == hash2:
+				print os.path.abspath(dup) + ": \n" + hash2"""
+			if filecmp.cmp(filename, dup, shallow = False):
 				print filename + " and " + dup + " are identical."
 				deleted_files = deleted_files + 1
 				space_saved = space_saved + os.path.getsize(dup)
@@ -36,12 +36,12 @@ for root, subfolders, files in os.walk(source_dir):
 				# Problem because then it's picked up as metadata differing...
 				tempsrc = jpg.stripmetadata(filename)
 				tempdup = jpg.stripmetadata(dup)
-				hash1 = hash.sha512file(tempsrc)
+				"""hash1 = hash.sha512file(tempsrc)
 				hash2 = hash.sha512file(tempdup)
 				if debug:
 					print os.path.abspath(filename) + " (Stripped): \n" + hash1
-					print os.path.abspath(dup) + " (Stripped): \n" + hash2
-				if hash1 == hash2:
+					print os.path.abspath(dup) + " (Stripped): \n" + hash2"""
+				if filecmp.cmp(tempsrc, tempdup, shallow = False):
 					print  filename + " and " + dup + " differ by metadata, but contents are the same."
 					deleted_files = deleted_files + 1
 					space_saved = space_saved + os.path.getsize(dup)
