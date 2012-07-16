@@ -22,14 +22,14 @@ for root, subfolders, files in os.walk(source_dir):
 				"""hash1 = hash.sha512file(filename)
 				hash2 = hash.sha512file(dup)
 				if debug:
-					print os.path.abspath(filename).encode('unicode_escape') + ": \n" + hash1
-					print os.path.abspath(dup).encode('unicode_escape') + ": \n" + hash2"""
+					print os.path.abspath(filename).encode('mbcs') + ": \n" + hash1
+					print os.path.abspath(dup).encode('mbcs') + ": \n" + hash2"""
 				# VS using filecmp
 				if filecmp.cmp(filename, dup, shallow = False):
-					print(filename.encode('unicode_escape') + " and " + dup.encode('unicode_escape') + " are identical.")
+					print(filename.encode('mbcs') + " and " + dup.encode('mbcs') + " are identical.")
 					deleted_files = deleted_files + 1
 					space_saved = space_saved + os.path.getsize(dup)
-					print("[" + str(deleted_files) + "] Removing " + dup.encode('unicode_escape'))
+					print("[" + str(deleted_files) + "] Removing " + dup.encode('mbcs'))
 					if not testing:
 						os.remove(dup)
 				# striping metadata & recomparing
