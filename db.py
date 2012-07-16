@@ -4,7 +4,7 @@ def startDB(dbPath):
 		conn = sqlite3.connect(dbPath)
 		conn.text_factory = unicode
 		c = conn.cursor()
-		c.execute("SELECT * from mp3dedup")
+		c.execute("SELECT * from filededup")
 	except sqlite3.OperationalError as e:
 		print("SQLite3 Error : Operational Error", e.args[0])
 	except sqlite3.DatabaseError as e:
