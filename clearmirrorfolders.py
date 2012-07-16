@@ -18,11 +18,13 @@ for root, subfolders, files in os.walk(source_dir):
 			dup = os.path.abspath(dup_folder + "/" + filename)
 			filename = join(root,filename)
 			if os.path.exists(dup):
+				# Hashing a file
 				"""hash1 = hash.sha512file(filename)
 				hash2 = hash.sha512file(dup)
 				if debug:
 					print os.path.abspath(filename).encode('unicode_escape') + ": \n" + hash1
 					print os.path.abspath(dup).encode('unicode_escape') + ": \n" + hash2"""
+				# VS using filecmp
 				if filecmp.cmp(filename, dup, shallow = False):
 					print(filename.encode('unicode_escape') + " and " + dup.encode('unicode_escape') + " are identical.")
 					deleted_files = deleted_files + 1
@@ -30,6 +32,7 @@ for root, subfolders, files in os.walk(source_dir):
 					print("[" + str(deleted_files) + "] Removing " + dup.encode('unicode_escape'))
 					if not testing:
 						os.remove(dup)
+				# striping metadata & recomparing
 				elif re.search(".jpg",filename,re.IGNORECASE):
 					# stripmetadata returns an empty file if opening the image fails!
 					# Problem because then it's picked up as metadata differing...
