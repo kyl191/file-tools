@@ -9,7 +9,13 @@ def rmdir(dir):
 		for file in files:
 			file = unicode(os.path.normpath(join(root,file)))
 			if os.path.getsize(file) == 0 or file == u"Thumbs.db" or file == u"desktop.ini":
-				os.remove(file)
+				try:
+					os.remove(file)
+				except Exception as e:
+					print("Error: " + str(e))
 		for folder in subfolders:
-			if not os.listdir(join(root, folder)):
-				os.rmdir(join(root, folder))
+			try:
+				if not os.listdir(join(root, folder)):
+					os.rmdir(join(root, folder))
+			except Exception as e:
+				print("Error: " + str(e))
