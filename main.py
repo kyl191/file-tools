@@ -47,21 +47,12 @@ def hashAndAdd(file):
 #dbconn = db.startDB(dbPath)
 #dbcursor = dbconn.cursor()
 
-# If there's something wrong with the db, we should try & create it.
-#try:
-#	
-#except Exception as e:
-#	
-# Initial setup of DB & search path
 os.chdir(sys.argv[1])
 compare = sys.argv[2]
-
 
 for root, subfolders, files in os.walk(sys.argv[1]):
 	# Mention what path we're working in.
 	print("Working in", os.path.abspath(root))
-	# Since root contains the working folder, and we'll move onto subfolders later,
-	# We only care about the filename
 	for filename in files:
 """		# If is does, hash & add it to the db
 		#hashAndAdd(os.path.abspath(join(root,filename)))
