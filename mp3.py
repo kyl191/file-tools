@@ -30,6 +30,6 @@ def getid3(file):
 		album = audio["TALB"]
 	except:
 		album = "Unknown"
-	print str(title).decode('utf-8'), str(artist).decode('utf-8'), str(album).decode('utf-8')
+	#print str(title).decode('utf-8'), str(artist).decode('utf-8'), str(album).decode('utf-8')
 	#return title,artist,album
 	return str(title).decode('utf-8'), str(artist).decode('utf-8'), str(album).decode('utf-8')
