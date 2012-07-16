@@ -20,6 +20,7 @@ def hashMP4(filename):
 	return hashresult
 
 def hashAndAdd(file):
+	#hashAndAdd(os.path.abspath(join(root,filename)))
 	mtime = os.path.getmtime(file)
 	(exists,dbmtime) = db.checkIfExists(dbcursor, unicode(str(os.path.abspath(file)).decode('utf-8')))
 	update = False
@@ -54,8 +55,6 @@ for root, subfolders, files in os.walk(sys.argv[1]):
 	# Mention what path we're working in.
 	print("Working in", os.path.abspath(root))
 	for filename in files:
-"""		# If is does, hash & add it to the db
-		#hashAndAdd(os.path.abspath(join(root,filename)))
 		(filenameprefix, dot, filenamesuffix) = filename.rpartition(".")
 		dup = filenameprefix + "_2." + filenamesuffix
 		if os.path.exists(dup):
