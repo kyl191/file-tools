@@ -66,8 +66,9 @@ for root, subfolders, files in os.walk(sys.argv[1]):
 				print "Removing " + dup + "!"
 				os.remove(dup)
 """
-		src = os.path.abspath(join(root,filename))
+		
 		# Need to find some way to recurse directories in sync with src
+		src = os.path.abspath(join(root,filename))
 		dst = os.path.abspath(join(sys.argv[2],filename))
 		# Merging files... but it looks as if we're moving from the first directory to the second, not the other way around
 		if not os.path.isfile(dst):
