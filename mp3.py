@@ -5,12 +5,10 @@ import tempfile
 import os
 
 def stripid3(file):
-	temp = tempfile.mkstemp()
-	shutil.copyfile(file,temp[1])
-	audio = ID3(temp[1])
+	temp = tempfile.NamedTemporaryFile(delete = False).name
+	shutil.copyfile(file,temp)
+	audio = ID3(temp)
 	audio.delete()
-	# Returns a *tuple* of the file reference & file path!
-	# file *path* is temp[1]!
 	return temp
 
 def getid3(file):
