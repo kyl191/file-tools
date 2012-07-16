@@ -61,7 +61,7 @@ for root, subfolders, files in os.walk(sys.argv[1]):
 		# Dup files in *ONE* directory
 		# eg. filename.ext and filename 1.ext
 		(filenameprefix, dot, filenamesuffix) = filename.rpartition(".")
-		dup = filenameprefix + "_2." + filenamesuffix
+		dup = filenameprefix + " 1." + filenamesuffix
 		if os.path.exists(dup):
 			hash1 = hash.sha512file(filename)
 			hash2 = hash.sha512file(dup)
