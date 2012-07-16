@@ -50,17 +50,7 @@ def hashAndAdd(file):
 #try:
 #	
 #except Exception as e:
-#	sql = """BEGIN TRANSACTION;
-#CREATE TABLE filededup (
-#    "id" INTEGER,
-#    "hash" TEXT,
-#    "filepath" TEXT,
-#    "mtime" INTEGER
-#);
-#CREATE INDEX "path_index" on "filededup" (filepath ASC);
-#CREATE INDEX "hash_index" on "filededup" (hash ASC);
-#COMMIT;"""
-
+#	
 # Initial setup of DB & search path
 os.chdir(sys.argv[1])
 compare = sys.argv[2]

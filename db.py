@@ -42,3 +42,21 @@ def updateDB(db, info):
 	except sqlite3.Error as e:
 		print("SQLite 3: Unknown Error", e.args[0])
 	return info
+
+def createDB(db):
+	sql = """BEGIN TRANSACTION;
+CREATE TABLE filededup (
+    "id" INTEGER,
+    "hash" TEXT,
+    "strippedhash" TEXT,
+    "filepath" TEXT,
+    "mtime" INTEGER
+);
+CREATE INDEX "path_index" on "filededup" (filepath ASC);
+CREATE INDEX "hash_index" on "filededup" (hash ASC);
+CREATE INDEX "strippedhash_index" on "filededup" (strippedhash ASC);
+COMMIT;"""
+	try:
+		db.execute(sql)
+	except sqlite3.Erroras e:
+		print("SQLite 3: Unknown Error", e.args[0])
