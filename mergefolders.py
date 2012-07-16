@@ -82,15 +82,6 @@ for root, subfolders, files in os.walk(source_dir):
 			print("Moved {0} to {1}").format(src, dst)
 		
 		else:
-			# should be standard hash first, then metadata stripping
-			if re.search(".mp4",filename,re.IGNORECASE):
-				srchash = hashMP4(src)
-				dsthash = hashMP4(dst)
-			else:
-				srchash = hash.sha512file(src)
-				dsthash = hash.sha512file(dst)
-			if srchash == dsthash:
-				print("{0} and {1} are identical. Deleting {2}.").format(src, dst, src)
 				os.remove(src)
 			else:
 				filebase = os.path.splitext(os.path.split(src)[1])[0]
