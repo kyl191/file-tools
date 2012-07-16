@@ -8,7 +8,7 @@ def stripmetadata(file):
 	try:
 		Image.open(file).copy().save(temp.name)
 	except IOError: 
-		print "IOError processing" + file
+		print("IOError processing" + file)
 		temp.close()
 		return False
 	temp.close()
