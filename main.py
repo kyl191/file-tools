@@ -17,6 +17,7 @@ def hashMP4(filename):
 	#print tempfile
 	tempfile.close()
 	os.remove(tempfile.name)
+	return hashresult
 
 def hashAndAdd(file):
 	mtime = os.path.getmtime(file)
