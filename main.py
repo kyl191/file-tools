@@ -55,6 +55,8 @@ for root, subfolders, files in os.walk(sys.argv[1]):
 	# Mention what path we're working in.
 	print("Working in", os.path.abspath(root))
 	for filename in files:
+		# Dup files in *ONE* directory
+		# eg. filename.ext and filename 1.ext
 		(filenameprefix, dot, filenamesuffix) = filename.rpartition(".")
 		dup = filenameprefix + "_2." + filenamesuffix
 		if os.path.exists(dup):
@@ -67,10 +69,12 @@ for root, subfolders, files in os.walk(sys.argv[1]):
 		src = os.path.abspath(join(root,filename))
 		# Need to find some way to recurse directories in sync with src
 		dst = os.path.abspath(join(sys.argv[2],filename))
+		# Merging files... but it looks as if we're moving from the first directory to the second, not the other way around
 		if not os.path.isfile(dst):
 			shutil.move(src, dst)
 			print("Moved {0} to {1}").format(src, dst)
 		else:
+			# should be standard hash first, then metadata stripping
 			if re.search(".mp4",filename,re.IGNORECASE):
 				srchash = hashMP4(src)
 				dsthash = hashMP4(dst)
