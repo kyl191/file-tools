@@ -1,4 +1,4 @@
-import db, hash, os, shutil, sys, mp4, re, mp3
+import db, hash, os, shutil, sys, mp4, re, mp3, filecmp
 from os.path import join
 from collections import namedtuple
 fileinfo = namedtuple('fileinfo', "hash filepath mtime")
@@ -82,6 +82,12 @@ for root, subfolders, files in os.walk(source_dir):
 			print("Moved {0} to {1}").format(src, dst)
 		
 		else:
+			# delete exact duplicates, otherwise merge directory contents by appending the file count to the filename and moving it.
+			if filecmp.cmp(src, dst, shallow = False):
+				print(src.encode('mbcs') + " and " + dst.encode('mbcs') + " are identical.")
+				deleted_files = deleted_files + 1
+				space_saved = space_saved + os.path.getsize(dup)
+				print("[" + str(deleted_files) + "] Removing " + src.encode('mbcs'))
 				os.remove(src)
 			else:
 				filebase = os.path.splitext(os.path.split(src)[1])[0]
