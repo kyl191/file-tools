@@ -8,8 +8,6 @@ space_saved = 0
 testing = False
 debug = True
 for root, subfolders, files in os.walk(source_dir):
-	# Since root contains the working folder, and we'll move onto subfolders later, 
-	# We only care about the filename
 	(null, path, pathsuffix) = root.rpartition(source_dir)
 	dup_folder = os.path.normpath(compare_dir + "/" + pathsuffix)
 	# Mention what path we're working in.
