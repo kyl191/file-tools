@@ -11,18 +11,6 @@ for root, subfolders, files in os.walk(source_dir):
 	print("Working in", os.path.abspath(root))
 	
 	for filename in files:
-	
-		# Dup files in *ONE* directory
-		# eg. filename.ext and filename 1.ext
-		(filenameprefix, dot, filenamesuffix) = filename.rpartition(".")
-		dup = filenameprefix + " 1." + filenamesuffix
-		if os.path.exists(dup):
-			hash1 = hash.sha512file(filename)
-			hash2 = hash.sha512file(dup)
-			if hash1 == hash2:
-				print "Removing " + dup + "!"
-				os.remove(dup)
-		
 		# Need to find some way to recurse directories in sync with src
 		src = os.path.abspath(join(root,filename))
 		dst = os.path.abspath(dup_folder + "/" + filename)
@@ -33,7 +21,7 @@ for root, subfolders, files in os.walk(source_dir):
 		if not os.path.isfile(dst):
 			shutil.move(src, dst)
 			print("Moved {0} to {1}").format(src, dst)
-		
+			
 		else:
 			# delete exact duplicates, otherwise merge directory contents by appending the file count to the filename and moving it.
 			if filecmp.cmp(src, dst, shallow = False):
