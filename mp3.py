@@ -5,7 +5,7 @@ import tempfile
 import os
 
 def stripid3(file):
-	temp = tempfile.NamedTemporaryFile(delete = False).name
+	temp = tempfile.NamedTemporaryFile(delete = False, suffix = ".mp3").name
 	shutil.copyfile(file,temp)
 	audio = ID3(temp)
 	audio.delete()
