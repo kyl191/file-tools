@@ -54,7 +54,10 @@ compare = sys.argv[2]
 for root, subfolders, files in os.walk(sys.argv[1]):
 	# Mention what path we're working in.
 	print("Working in", os.path.abspath(root))
+	
+	
 	for filename in files:
+	
 		# Dup files in *ONE* directory
 		# eg. filename.ext and filename 1.ext
 		(filenameprefix, dot, filenamesuffix) = filename.rpartition(".")
@@ -65,7 +68,6 @@ for root, subfolders, files in os.walk(sys.argv[1]):
 			if hash1 == hash2:
 				print "Removing " + dup + "!"
 				os.remove(dup)
-"""
 		
 		# Need to find some way to recurse directories in sync with src
 		src = os.path.abspath(join(root,filename))
@@ -74,6 +76,7 @@ for root, subfolders, files in os.walk(sys.argv[1]):
 		if not os.path.isfile(dst):
 			shutil.move(src, dst)
 			print("Moved {0} to {1}").format(src, dst)
+		
 		else:
 			# should be standard hash first, then metadata stripping
 			if re.search(".mp4",filename,re.IGNORECASE):
@@ -94,6 +97,7 @@ for root, subfolders, files in os.walk(sys.argv[1]):
 				newdst = os.path.abspath(join(sys.argv[2],filebase + " " + str(count) + fileext))
 				print("{0} and {1} are not identical. Renaming {2} to {3} and moving.").format(src, dst, src, newdst)
 				#shutil.move(src, newdst)
+
 # Close the cursor & commit the DB one last time just for good measure
 #dbcursor.close()
 #dbconn.commit()
