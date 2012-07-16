@@ -73,7 +73,10 @@ for root, subfolders, files in os.walk(source_dir):
 		# Need to find some way to recurse directories in sync with src
 		src = os.path.abspath(join(root,filename))
 		dst = os.path.abspath(dup_folder + "/" + filename)
+		
 		# Merging files... but it looks as if we're moving from the first directory to the second, not the other way around
+		# But it only runs if destination isn't a file.
+		# Doesn't check for folders because we're looping through filenames
 		if not os.path.isfile(dst):
 			shutil.move(src, dst)
 			print("Moved {0} to {1}").format(src, dst)
