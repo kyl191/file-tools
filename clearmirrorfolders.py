@@ -1,4 +1,4 @@
-import hash, os, sys, re, shutil, jpg, filecmp
+import hash, os, sys, re, shutil, jpg, filecmp, rmdir
 from os.path import join, getsize
 
 source_dir = unicode(os.path.abspath(sys.argv[1]))
@@ -66,15 +66,5 @@ for root, subfolders, files in os.walk(source_dir):
 				#print "Moved " + src_path + " to " + dst_path
 				pass
 print("Wiping empty folders")
-for root, subfolders, files in os.walk(compare_dir, topdown=False):
-	# Delete 0-sized files. Assuming by default they're not necessary for anything,
-	# i.e. not sentiel files
-	for file in files:
-		file = join(root,file)
-		file = unicode(os.path.normpath(file))
-		if os.path.getsize(file) == 0 or file == u"Thumbs.db" or file == u"desktop.ini":
-			os.remove(file)
-	for folder in subfolders:
-		if not os.listdir(join(root, folder)):
-			os.rmdir(join(root, folder))
+rmdir.rmdir(compare_dir)
 print("Deleted " + str(deleted_files) + ", saving " + str(space_saved) + " bytes of space")
