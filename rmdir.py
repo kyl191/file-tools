@@ -19,3 +19,7 @@ def rmdir(dir):
 					os.rmdir(join(root, folder))
 			except Exception as e:
 				print("Error: " + str(e))
+
+if __name__ == "__main__":
+	import sys
+	rmdir(sys.argv[1])
