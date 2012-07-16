@@ -9,6 +9,7 @@ def stripid3(file):
 	shutil.copyfile(file,temp)
 	audio = ID3(temp)
 	audio.delete()
+	audio.save()
 	return temp
 
 def getid3(file):
