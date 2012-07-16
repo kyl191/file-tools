@@ -1,11 +1,11 @@
 import hash, os, sys, re, shutil, jpg, filecmp
 from os.path import join, getsize
 
-source_dir = os.path.abspath(sys.argv[1])
-compare_dir = os.path.abspath(sys.argv[2])
+source_dir = unicode(os.path.abspath(sys.argv[1]))
+compare_dir = unicode(os.path.abspath(sys.argv[2]))
 deleted_files = 0
 space_saved = 0
-testing = True
+testing = False
 debug = True
 for root, subfolders, files in os.walk(source_dir):
 	# Since root contains the working folder, and we'll move onto subfolders later, 
@@ -13,43 +13,44 @@ for root, subfolders, files in os.walk(source_dir):
 	(null, path, pathsuffix) = root.rpartition(source_dir)
 	dup_folder = os.path.normpath(compare_dir + "/" + pathsuffix)
 	# Mention what path we're working in.
-	print("Comparing: " + os.path.abspath(root))
-	print("To: " + os.path.abspath(dup_folder))
-	for filename in files:
-		dup = os.path.abspath(dup_folder + "/" + filename)
-		filename = join(root,filename)
-		if os.path.exists(dup):
-			"""hash1 = hash.sha512file(filename)
-			hash2 = hash.sha512file(dup)
-			if debug:
-				print os.path.abspath(filename) + ": \n" + hash1
-				print os.path.abspath(dup) + ": \n" + hash2"""
-			if filecmp.cmp(filename, dup, shallow = False):
-				print filename + " and " + dup + " are identical."
-				deleted_files = deleted_files + 1
-				space_saved = space_saved + os.path.getsize(dup)
-				print "[" + str(deleted_files) + "] Removing " + dup
-				if not testing:
-					os.remove(dup)
-			elif re.search(".jpg",filename,re.IGNORECASE):
-				# stripmetadata returns an empty file if opening the image fails!
-				# Problem because then it's picked up as metadata differing...
-				tempsrc = jpg.stripmetadata(filename)
-				tempdup = jpg.stripmetadata(dup)
-				"""hash1 = hash.sha512file(tempsrc)
-				hash2 = hash.sha512file(tempdup)
+	print("Comparing: " + os.path.abspath(root).encode('mbcs'))
+	if os.path.exists(dup_folder):
+		print("To: " + os.path.abspath(dup_folder).encode('mbcs'))
+		for filename in files:
+			dup = os.path.abspath(dup_folder + "/" + filename)
+			filename = join(root,filename)
+			if os.path.exists(dup):
+				"""hash1 = hash.sha512file(filename)
+				hash2 = hash.sha512file(dup)
 				if debug:
-					print os.path.abspath(filename) + " (Stripped): \n" + hash1
-					print os.path.abspath(dup) + " (Stripped): \n" + hash2"""
-				if filecmp.cmp(tempsrc, tempdup, shallow = False):
-					print  filename + " and " + dup + " differ by metadata, but contents are the same."
+					print os.path.abspath(filename).encode('unicode_escape') + ": \n" + hash1
+					print os.path.abspath(dup).encode('unicode_escape') + ": \n" + hash2"""
+				if filecmp.cmp(filename, dup, shallow = False):
+					print(filename.encode('unicode_escape') + " and " + dup.encode('unicode_escape') + " are identical.")
 					deleted_files = deleted_files + 1
 					space_saved = space_saved + os.path.getsize(dup)
-					print "[" + str(deleted_files) + "] Removing " + dup
+					print("[" + str(deleted_files) + "] Removing " + dup.encode('unicode_escape'))
 					if not testing:
 						os.remove(dup)
-				os.remove(tempsrc)
-				os.remove(tempdup)
+				elif re.search(".jpg",filename,re.IGNORECASE):
+					# stripmetadata returns an empty file if opening the image fails!
+					# Problem because then it's picked up as metadata differing...
+					tempsrc = jpg.stripmetadata(filename)
+					tempdup = jpg.stripmetadata(dup)
+					"""hash1 = hash.sha512file(tempsrc)
+					hash2 = hash.sha512file(tempdup)
+					if debug:
+						print(os.path.abspath(filename) + " (Stripped): \n" + hash1)
+						print(os.path.abspath(dup) + " (Stripped): \n" + hash2)"""
+					if filecmp.cmp(tempsrc, tempdup, shallow = False):
+						print(filename + " and " + dup + " differ by metadata, but contents are the same.")
+						deleted_files = deleted_files + 1
+						space_saved = space_saved + os.path.getsize(dup)
+						print("[" + str(deleted_files) + "] Removing " + dup)
+						if not testing:
+							os.remove(dup)
+					os.remove(tempsrc)
+					os.remove(tempdup)
 	# Merge files that are in the dup folder but aren't in the source folder
 	# Skip the folder if it's not present in the dup folder but *is* in the source folder
 	if os.path.exists(dup_folder):
@@ -64,12 +65,15 @@ for root, subfolders, files in os.walk(source_dir):
 				#shutil.move(src_path, dst_path)
 				#print "Moved " + src_path + " to " + dst_path
 				pass
+print("Wiping empty folders")
 for root, subfolders, files in os.walk(compare_dir, topdown=False):
 	# Delete 0-sized files. Assuming by default they're not necessary for anything,
 	# i.e. not sentiel files
 	for file in files:
-		if os.path.getsize(join(root,file)) == 0:
-			os.remove(join(root,file))
+		file = join(root,file)
+		file = unicode(os.path.normpath(file))
+		if os.path.getsize(file) == 0 or file == u"Thumbs.db" or file == u"desktop.ini":
+			os.remove(file)
 	for folder in subfolders:
 		if not os.listdir(join(root, folder)):
 			os.rmdir(join(root, folder))
