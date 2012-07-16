@@ -1,4 +1,4 @@
-import db, hash, os, shutil, sys, mp4, re
+import db, hash, os, shutil, sys, mp4, re, mp3
 from os.path import join
 from collections import namedtuple
 fileinfo = namedtuple('fileinfo', "hash filepath mtime")
