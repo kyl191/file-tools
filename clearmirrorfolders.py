@@ -1,4 +1,4 @@
-import hash, os, sys, re, shutil, jpg, filecmp, rmdir
+import hash, os, sys, re, shutil, jpg, filecmp, rmdir, stat
 from os.path import join, getsize
 
 source_dir = unicode(os.path.abspath(sys.argv[1]))
@@ -31,7 +31,11 @@ for root, subfolders, files in os.walk(source_dir):
 					space_saved = space_saved + os.path.getsize(dup)
 					print("[" + str(deleted_files) + "] Removing " + dup.encode('mbcs'))
 					if not testing:
-						os.remove(dup)
+						try:
+							os.remove(dup)
+						except WindowsError as e:
+							os.chmod(dup ,stat.S_IWRITE)
+							os.remove(dup)
 				# striping metadata & recomparing
 				elif re.search(".jpg",filename,re.IGNORECASE):
 					# stripmetadata returns an empty file if opening the image fails!
