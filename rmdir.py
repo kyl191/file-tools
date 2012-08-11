@@ -8,7 +8,7 @@ def rmdir(dir):
 		# i.e. not sentiel files
 		for file in files:
 			file = unicode(os.path.normpath(join(root,file)))
-			if os.path.getsize(file) == 0 or file == u"Thumbs.db" or file == u"desktop.ini":
+			if os.path.getsize(file) == 0 or os.path.basename(file) == u"Thumbs.db" or os.path.basename(file) == u"desktop.ini" or os.path.basename(file) == u"Picasa.ini" or os.path.basename(file) == u"picasa.ini":
 				try:
 					os.remove(file)
 				except Exception as e:

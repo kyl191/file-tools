@@ -1,4 +1,4 @@
-import os, shutil, sys, filecmp
+import os, shutil, sys, filecmp, rmdir
 from os.path import join
 
 source_dir = unicode(os.path.abspath(sys.argv[1]))
@@ -40,4 +40,5 @@ for root, subfolders, files in os.walk(source_dir):
 				print("{0} and {1} are not identical. Renaming {2} to {3} and moving.").format(src, dst, src, newdst)
 				#shutil.move(src, newdst)
 
+rmdir.rmdir(source_dir)
 
