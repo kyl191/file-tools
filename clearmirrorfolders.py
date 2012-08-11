@@ -37,16 +37,20 @@ for root, subfolders, files in os.walk(source_dir):
 							os.chmod(dup ,stat.S_IWRITE)
 							os.remove(dup)
 				# striping metadata & recomparing
+				"""
 				elif re.search(".jpg",filename,re.IGNORECASE):
+					pass
 					# stripmetadata returns an empty file if opening the image fails!
 					# Problem because then it's picked up as metadata differing...
 					tempsrc = jpg.stripmetadata(filename)
 					tempdup = jpg.stripmetadata(dup)
-					"""hash1 = hash.sha512file(tempsrc)
+					""
+					hash1 = hash.sha512file(tempsrc)
 					hash2 = hash.sha512file(tempdup)
 					if debug:
 						print(os.path.abspath(filename) + " (Stripped): \n" + hash1)
-						print(os.path.abspath(dup) + " (Stripped): \n" + hash2)"""
+						print(os.path.abspath(dup) + " (Stripped): \n" + hash2)
+					""
 					if filecmp.cmp(tempsrc, tempdup, shallow = False):
 						print(filename + " and " + dup + " differ by metadata, but contents are the same.")
 						deleted_files = deleted_files + 1
@@ -56,6 +60,7 @@ for root, subfolders, files in os.walk(source_dir):
 							os.remove(dup)
 					os.remove(tempsrc)
 					os.remove(tempdup)
+				"""
 	# Merge files that are in the dup folder but aren't in the source folder
 	# Skip the folder if it's not present in the dup folder but *is* in the source folder
 	if os.path.exists(dup_folder) and os.path.isdir(dup_folder):
