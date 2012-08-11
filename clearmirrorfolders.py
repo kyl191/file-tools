@@ -58,7 +58,7 @@ for root, subfolders, files in os.walk(source_dir):
 					os.remove(tempdup)
 	# Merge files that are in the dup folder but aren't in the source folder
 	# Skip the folder if it's not present in the dup folder but *is* in the source folder
-	if os.path.exists(dup_folder):
+	if os.path.exists(dup_folder) and os.path.isdir(dup_folder):
 		dup_folder_files = os.listdir(dup_folder)
 		for file in dup_folder_files:
 			# To keep things somewhat simple for the copying,
