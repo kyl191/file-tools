@@ -20,7 +20,7 @@ def isMP4(file):
 	# Seek to the header @ 4th byte
 	file.seek(4)
 	header = file.read(4)
-	if header == "ftyp":
+	if header.decode('ascii') == "ftyp":
 		return True
 	else:
 		return False
@@ -30,7 +30,7 @@ def findLastAtom(file):
 	rawlength = file.read(4)
 	length = struct.unpack(">I", rawlength)[0]
 	name = file.read(4)
-	while name != "mdat":
+	while name.decode('ascii') != "mdat":
 		#print name, length
 		#print "seeking to " + str(file.tell() + length - 8)
 		file.seek(file.tell()+length-8)
