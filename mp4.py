@@ -13,9 +13,9 @@ def stripMetadata(file):
 	#print temp.name
 	#print temp
 	return temp
-	
+
 def isMP4(file):
-	# Check if it's a valid MP4 file first by trying to get the file header 
+	# Check if it's a valid MP4 file first by trying to get the file header
 	# 1st 4 bytes are length. 2nd 4 bytes are the signature.
 	# Seek to the header @ 4th byte
 	file.seek(4)
