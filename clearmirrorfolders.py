@@ -47,7 +47,7 @@ for root, subfolders, files in os.walk(source_dir):
 				deleted_files = deleted_files + 1
 				space_saved = space_saved + os.path.getsize(dup)
 				print("[%s] Removing %s" % (str(deleted_files), dup.encode("utf-8")))
-				#os.remove(dup)
+				os.remove(dup)
 	if os.path.exists(dup_folder) and not os.listdir(dup_folder):
 		os.rmdir(dup_folder)
 print("Deleted " + str(deleted_files) + ", saving " + str(space_saved) + " bytes of space")
