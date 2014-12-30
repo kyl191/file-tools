@@ -22,7 +22,7 @@ compare_dir = os.path.abspath(sys.argv[2])
 deleted_files = 0
 space_saved = 0
 for root, subfolders, files in os.walk(source_dir):
-	# Since root contains the working folder, and we'll move onto subfolders later, 
+	# Since root contains the working folder, and we'll move onto subfolders later,
 	# We only care about the filename
 	(null, path, pathsuffix) = root.rpartition(source_dir)
 	dup_folder = os.path.normpath(compare_dir + "/" + pathsuffix)
@@ -49,5 +49,5 @@ for root, subfolders, files in os.walk(source_dir):
 				print("[%s] Removing %s" % (str(deleted_files), dup.encode("utf-8")))
 				#os.remove(dup)
 	if os.path.exists(dup_folder) and not os.listdir(dup_folder):
-		os.rmdir(dup_folder)		
+		os.rmdir(dup_folder)
 print("Deleted " + str(deleted_files) + ", saving " + str(space_saved) + " bytes of space")
