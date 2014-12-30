@@ -4,7 +4,8 @@ from os.path import join, getsize
 def hashMP4(filename):
   file = open(filename, 'rb')
   try:
-    mp4.isMP4(file)
+    if not mp4.isMP4(file):
+      return hash.sha512file(file)
   except Exception as e:
     # So far the only exception is an invalid MP4 header found, so not much to grab
     print(e)
