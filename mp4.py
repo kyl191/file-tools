@@ -38,9 +38,3 @@ def findLastAtom(file):
 		length = struct.unpack(">I", rawlength)[0]
 		name = file.read(4)
 	return file.tell()
-		
-		
-		
-#filename = 	"test.mp4"
-#file = open(filename, 'r')
-#print stripMetadata(file)
