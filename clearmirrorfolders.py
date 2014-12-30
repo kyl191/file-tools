@@ -2,7 +2,7 @@ import mp4, hash, os, sys, re
 from os.path import join, getsize
 
 def hashMP4(filename):
-  file = open(filename, 'r')
+  file = open(filename, 'rb')
   try:
     mp4.isMP4(file)
   except Exception as e:
